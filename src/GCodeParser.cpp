@@ -32,6 +32,8 @@ SOFTWARE.
 void GCodeParser::Initialize()
 {
 	lineCharCount = 0;
+	lastPointer = -1;
+	lastWord = '\0';
 	line[lineCharCount] = '\0';
 	comments = line;
 	lastComment = comments;
@@ -367,6 +369,8 @@ bool GCodeParser::HasWord(char letter)
 		{
 			return false;
 		}
+		lastPointer = pointer;
+		lastWord = letter;
 		return true;
 	}
 	return false;
@@ -470,7 +474,14 @@ bool GCodeParser::NoWords()
 /// </remarks>
 double GCodeParser::GetWordValue(char letter)
 {
-	int pointer = FindWord(letter);
+	int pointer = 0;
+	if(lastWord == letter && lastPointer >= 0) pointer = lastPointer;
+	else
+	{
+		pointer = FindWord(letter);
+		lastWord = letter;
+		lastPointer = pointer;
+	}
 
 	if (line[pointer] != '\0')
 		return (double)strtod(&line[pointer + 1], NULL);

@@ -51,6 +51,8 @@ class GCodeParser
 {
 private:
 	int lineCharCount;
+	int lastPointer = -1;
+	char lastWord = '\0';
 
 public:
 	char line[MAX_LINE_SIZE + 2];
