@@ -367,9 +367,9 @@ bool GCodeParser::HasWord(char letter)
 		{
 			return false;
 		}
+		return true;
 	}
-
-	return true;
+	return false;
 }
 
 char wordLetter[] = { 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '\0' };
